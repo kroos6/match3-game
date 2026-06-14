@@ -110,14 +110,14 @@ app.get('/api/highscore', (req, res) => {
 });
 
 // 静态文件
-app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
 
 // ===== 启动 =====
 initDb().then(() => {
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`✨ 消消乐游戏已启动！`);
     console.log(`🖥️  游戏页面: http://localhost:${PORT}`);
     console.log(`📡 排行榜 API: http://localhost:${PORT}/api/leaderboard`);

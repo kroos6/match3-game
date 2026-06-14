@@ -1,0 +1,10 @@
+{
+  "name": "match3-game",
+  "version": "1.0.0",
+  "description": "✨ 消消乐 - 精美三消游戏",
+  "scripts": {
+    "start": "node backend/server.js",
+    "build": "cd backend && npm install",
+    "postinstall": "cd backend && npm install"
+  }
+}
