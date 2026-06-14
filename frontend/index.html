@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ 消消乐 - 宝石迷阵</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ===== 粒子背景 ===== -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- ===== 主容器 ===== -->
+  <div class="container">
+    <!-- ===== 顶部导航 ===== -->
+    <header class="game-header">
+      <h1 class="game-title">
+        <span class="title-gem">💎</span>
+        消消乐
+        <span class="title-gem">💎</span>
+      </h1>
+      <p class="game-subtitle">Match-3 Puzzle</p>
+    </header>
+
+    <!-- ===== 游戏信息栏 ===== -->
+    <div class="game-info">
+      <div class="info-item score-box">
+        <span class="info-label">得分</span>
+        <span class="info-value" id="scoreDisplay">0</span>
+      </div>
+      <div class="info-item combo-box">
+        <span class="info-label">连击</span>
+        <span class="info-value combo-value" id="comboDisplay">0</span>
+      </div>
+      <div class="info-item timer-box">
+        <span class="info-label">时间</span>
+        <span class="info-value" id="timerDisplay">60</span>
+      </div>
+      <div class="info-item moves-box">
+        <span class="info-label">步数</span>
+        <span class="info-value" id="movesDisplay">30</span>
+      </div>
+    </div>
+
+    <!-- ===== 进度条 ===== -->
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- ===== 游戏面板 ===== -->
+    <div class="game-board-wrapper">
+      <div class="board-border">
+        <div class="game-board" id="gameBoard"></div>
+      </div>
+    </div>
+
+    <!-- ===== 操作按钮 ===== -->
+    <div class="game-actions">
+      <button class="action-btn restart-btn" onclick="initGame()">
+        🔄 重新开始
+      </button>
+      <button class="action-btn leaderboard-btn" onclick="showLeaderboard()">
+        🏆 排行榜
+      </button>
+      <button class="action-btn hint-btn" onclick="findHint()">
+        💡 提示
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== 排行榜弹窗 ===== -->
+  <div class="modal-overlay" id="leaderboardModal" style="display:none;">
+    <div class="modal glass">
+      <button class="modal-close" onclick="closeLeaderboard()">&times;</button>
+      <h2 class="modal-title">🏆 排行榜</h2>
+      <div class="lb-tabs">
+        <button class="lb-tab active" onclick="switchLbTab('today', this)">今日</button>
+        <button class="lb-tab" onclick="switchLbTab('all', this)">全部</button>
+      </div>
+      <div class="lb-list" id="lbList">
+        <div class="loading-spinner">加载中...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 结束弹窗 ===== -->
+  <div class="modal-overlay" id="gameOverModal" style="display:none;">
+    <div class="modal glass game-over-modal">
+      <button class="modal-close" onclick="closeGameOver()">&times;</button>
+      <div class="game-over-content">
+        <div class="game-over-icon">🎉</div>
+        <h2 class="game-over-title">游戏结束！</h2>
+        <div class="final-score-box">
+          <span class="final-score-label">最终得分</span>
+          <span class="final-score-value" id="finalScore">0</span>
+        </div>
+        <div class="score-details">
+          <span>连击最高: <strong id="finalCombo">0</strong></span>
+          <span>消除行数: <strong id="finalMatches">0</strong></span>
+        </div>
+        <div class="name-input-row">
+          <input type="text" id="playerNameInput" class="name-input" placeholder="输入你的名字" maxlength="8">
+          <button class="action-btn submit-btn" onclick="submitScore()">🏆 提交成绩</button>
+        </div>
+        <button class="action-btn restart-btn" onclick="closeGameOver();initGame();">🔄 再来一局</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 得分弹出动画容器 ===== -->
+  <div id="popupContainer"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
